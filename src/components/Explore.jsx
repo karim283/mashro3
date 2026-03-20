@@ -1,10 +1,20 @@
 import { carCareImages, getRandomItems } from "../data/mockData";
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import gps from "../assets/gps.png";
 import car1 from "../assets/car1.png";
 
 export default function Explore() {
   const [randomImages, setRandomImages] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const categories = [
+    { name: "Repair shop", icon: "🚗", path: "/explore/repair" },
+    { name: "Profile", icon: "🙍‍♂️", path: "/profile" },
+    { name: "Gas station", icon: "⛽", path: "/explore/gas" },
+    { name: "Care centers", icon: "⚖️", path: "/explore/care" },
+  ];
 
   // Load random images once
   useEffect(() => {
@@ -41,19 +51,28 @@ export default function Explore() {
 
         {/* Categories */}
         <div className="grid grid-cols-4 gap-3 sm:gap-5 text-center">
-          {[
-            { name: "Repair shop", icon: "🚗" },
-            { name: "Favorite", icon: "💚" },
-            { name: "Gas station", icon: "⛽" },
-            { name: "Care centers", icon: "⚖️" },
-          ].map((cat, i) => (
-            <div key={i} className="flex flex-col items-center">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-teal-500 flex items-center justify-center text-white text-lg sm:text-xl shadow">
-                {cat.icon}
-              </div>
-              <p className="text-[10px] sm:text-xs mt-2">{cat.name}</p>
-            </div>
-          ))}
+          {categories.map((cat, i) => {
+            const isActive = location.pathname === cat.path;
+            return (
+              <button
+                key={i}
+                onClick={() => navigate(cat.path)}
+                className={`flex flex-col items-center rounded-lg p-1 transition transform hover:-translate-y-0.5 ${
+                  isActive ? "ring-2 ring-teal-500" : ""
+                }`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <div
+                  className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-white text-lg sm:text-xl shadow ${
+                    isActive ? "bg-teal-700" : "bg-teal-500"
+                  }`}
+                >
+                  {cat.icon}
+                </div>
+                <p className="text-[10px] sm:text-xs mt-2">{cat.name}</p>
+              </button>
+            );
+          })}
         </div>
 
         {/* Map Section */}

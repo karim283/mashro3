@@ -40,13 +40,18 @@
     "@radix-ui/react-toggle": "1.1.2",
     "@radix-ui/react-toggle-group": "1.1.2",
     "@radix-ui/react-tooltip": "1.1.8",
+    "axios": "^1.13.6",
+    "bcryptjs": "^3.0.3",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "cmdk": "1.1.1",
+    "cors": "^2.8.6",
     "date-fns": "3.6.0",
     "embla-carousel-react": "8.6.0",
+    "express": "^5.2.1",
     "input-otp": "1.4.2",
-    "lucide-react": "0.487.0",
+    "jsonwebtoken": "^9.0.3",
+    "lucide-react": "^0.487.0",
     "motion": "12.23.24",
     "next-themes": "0.4.6",
     "react-day-picker": "8.10.1",
@@ -86,5 +91,10 @@
     "overrides": {
       "vite": "6.3.5"
     }
-  }
+  },
+  "description": "This is a code bundle for Cinematic Valentine’s Day Website (Community). The original project is available at https://www.figma.com/design/1yEmH3muaLODTFURN4PrdP/Cinematic-Valentine%E2%80%99s-Day-Website--Community-.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

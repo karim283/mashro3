@@ -28,9 +28,11 @@ export default function Register() {
       mobile,
       email,
       password,
+      image: "",
     };
 
     localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("isLoggedIn", "false");
 
     // Success
     setError("");

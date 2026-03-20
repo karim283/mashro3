@@ -24,7 +24,8 @@ export default function Login() {
       return;
     }
 
-    // ✅ Success → Go to Explore
+    // ✅ Success → mark logged in and go to profile
+    localStorage.setItem("isLoggedIn", "true");
     setError("");
     navigate("/explore");
   };
@@ -86,6 +87,15 @@ export default function Login() {
             f
           </button>
         </div>
+        <p className="mt-6 text-sm">
+          <span>doesn't have an account? </span>
+          <span
+            onClick={() => navigate("/")}
+            className="text-teal-500 font-semibold cursor-pointer"
+          >
+            Register
+          </span>
+        </p>
       </div>
     </div>
   );
