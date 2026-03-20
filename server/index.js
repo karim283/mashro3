@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 // Get gas stations in Alexandria (hardcoded bounding box)
 app.get("/api/gas-stations", async (req, res) => {
   try {
-    console.log('incoming /api/gas-stations query:', req.query);
+    console.log("incoming /api/gas-stations query:", req.query);
     const south = 31.1;
     const north = 31.3;
     const west = 29.8;
