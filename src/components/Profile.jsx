@@ -12,6 +12,7 @@ import {
   Info,
   Share2,
   LogOut,
+  MessageCircle,
 } from "lucide-react";
 
 const Profile = () => {
@@ -155,7 +156,16 @@ const Profile = () => {
               <MenuItem icon={<Bell />} text="Notification Preferences" />
               <MenuItem icon={<Info />} text="About Us" />
               <MenuItem icon={<Share2 />} text="Referral" />
-              <MenuItem icon={<LogOut />} text="Log out" />
+              <MenuItem
+                icon={<MessageCircle />}
+                text="Chat with Assistant"
+                onClick={() => navigate("/chat")}
+              />
+              <MenuItem
+                icon={<LogOut />}
+                text="Log out"
+                onClick={handleLogout}
+              />
             </div>
           </div>
         </div>
@@ -164,9 +174,12 @@ const Profile = () => {
   );
 };
 
-const MenuItem = ({ icon, text }) => {
+const MenuItem = ({ icon, text, onClick }) => {
   return (
-    <div className="flex items-center gap-4 cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition">
+    <div
+      onClick={onClick}
+      className="flex items-center gap-4 cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition"
+    >
       <div className="text-gray-700">{icon}</div>
       <span className="text-sm font-medium">{text}</span>
     </div>
