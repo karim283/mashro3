@@ -4,16 +4,17 @@ import {
   Route,
   useNavigate,
   useLocation,
+  Outlet,
 } from "react-router-dom";
-import Register from "./components/Register";
-import Login from "./components/Login";
+import Register from "./components/login/register/Register";
+import Login from "./components/login/register/Login";
 import Explore from "./components/Explore";
 import RepairShop from "./components/RepairShop";
 import Profile from "./components/Profile";
-import GasStation from "./components/GasStation";
-import GasStationPage from "./components/GasStationPage";
+import GasStation from "./components/gas_station/GasStation";
+import GasStationPage from "./components/gas_station/GasStationPage";
 import CareCenters from "./components/CareCenters";
-import ChatPage from "./components/ChatPage";
+import ChatPage from "./components/chatbot/ChatPage";
 import { MessageCircle } from "lucide-react";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";

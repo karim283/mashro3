@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getGasStations } from "../api";
+import { getGasStations } from "../../api";
 
 const FALLBACK_LOCATION = { lat: 30.0444, lng: 31.2357 };
 const FALLBACK_STATIONS = [
