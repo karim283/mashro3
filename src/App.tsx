@@ -11,6 +11,7 @@ import Explore from "./components/Explore";
 import RepairShop from "./components/RepairShop";
 import Profile from "./components/Profile";
 import GasStation from "./components/GasStation";
+import GasStationPage from "./components/GasStationPage";
 import CareCenters from "./components/CareCenters";
 import ChatPage from "./components/ChatPage";
 import { MessageCircle } from "lucide-react";
@@ -30,6 +31,7 @@ function AppContent() {
         <Route path="/explore/repair" element={<RepairShop />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/explore/gas" element={<GasStation />} />
+        <Route path="/gas-station-details" element={<GasStationPage />} />
         <Route path="/explore/care" element={<CareCenters />} />
         <Route path="/chat" element={<ChatPage />} />
       </Routes>

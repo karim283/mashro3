@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getGasStations } from "../api";
 
 const FALLBACK_LOCATION = { lat: 30.0444, lng: 31.2357 };
@@ -23,11 +24,16 @@ const GasStations = () => {
   const [stations, setStations] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const fetchStations = async (lat, lng) => {
     try {
       const res = await getGasStations(lat, lng);
-      if (res.status === 200 && Array.isArray(res.data) && res.data.length > 0) {
+      if (
+        res.status === 200 &&
+        Array.isArray(res.data) &&
+        res.data.length > 0
+      ) {
         setStations(res.data);
         setError("");
       } else {
@@ -76,7 +82,6 @@ const GasStations = () => {
     );
   }
 
-
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center">
       <div className="w-full max-w-md p-4">
@@ -107,7 +112,12 @@ const GasStations = () => {
                   {"★".repeat(Math.round(s.rating))}
                 </div>
 
-                <button className="bg-teal-500 text-white px-3 py-1 rounded mt-2 text-sm">
+                <button
+                  onClick={() =>
+                    navigate("/gas-station-details", { state: { station: s } })
+                  }
+                  className="bg-teal-500 text-white px-3 py-1 rounded mt-2 text-sm"
+                >
                   Details
                 </button>
               </div>

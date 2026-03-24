@@ -12,26 +12,59 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
-// Get gas stations in Alexandria (hardcoded bounding box)
+// Get gas stations in Alexandria
 app.get("/api/gas-stations", async (req, res) => {
   try {
     console.log("incoming /api/gas-stations query:", req.query);
-    const south = 31.1;
-    const north = 31.3;
-    const west = 29.8;
-    const east = 30.02;
+    const lat = parseFloat(req.query.lat) || 30.0444;
+    const lng = parseFloat(req.query.lng) || 31.2357;
 
-    const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"="fuel"](${south},${west},${north},${east});out;`;
+    const apiKey = process.env.GOOGLE_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: "Google API key not configured" });
+    }
 
-    const response = await axios.get(overpassUrl);
-    const results = response.data.elements || [];
+    // Use Google Places API (New)
+    const url = `https://places.googleapis.com/v1/places:searchNearby`;
 
-    const stations = results.map((place) => ({
+    const response = await axios.post(
+      url,
+      {
+        includedTypes: ["gas_station"],
+        locationRestriction: {
+          circle: {
+            center: {
+              latitude: lat,
+              longitude: lng,
+            },
+            radius: 5000.0,
+          },
+        },
+        maxResultCount: 20,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Goog-Api-Key": apiKey,
+          "X-Goog-FieldMask":
+            "places.id,places.displayName,places.location,places.formattedAddress,places.rating,places.photos",
+        },
+      },
+    );
+
+    const places = response.data.places || [];
+
+    const stations = places.map((place) => ({
       id: place.id,
-      name: place.tags?.name || "Gas Station",
-      lat: place.lat,
-      lng: place.lon,
-      address: place.tags?.["addr:street"] || "No address",
+      name: place.displayName?.text || "Gas Station",
+      address: place.formattedAddress || "No address",
+      rating: place.rating || 3,
+      lat: place.location?.latitude,
+      lng: place.location?.longitude,
+      image:
+        place.photos && place.photos[0]
+          ? `https://places.googleapis.com/v1/${place.photos[0].name}/media?maxHeightPx=400&key=${apiKey}`
+          : "https://via.placeholder.com/100",
     }));
 
     if (!stations.length) {
@@ -39,16 +72,16 @@ app.get("/api/gas-stations", async (req, res) => {
         {
           id: "demo-1",
           name: "Fallback Gas Station",
-          lat: 31.2001,
-          lng: 29.9187,
-          address: "No address",
+          address: "1 Main Street",
+          rating: 4,
+          image: "https://via.placeholder.com/100",
         },
       ]);
     }
 
     res.json(stations);
   } catch (err) {
-    console.error(err.message);
+    console.error("Gas stations API error:", err.response?.data || err.message);
     res.status(500).json({ error: "Failed to fetch gas stations" });
   }
 });
