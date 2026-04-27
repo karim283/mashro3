@@ -10,6 +10,11 @@ import Register from "./components/login/register/Register";
 import Login from "./components/login/register/Login";
 import Explore from "./components/Explore";
 import RepairShop from "./components/RepairShop";
+import CarSearch from "./components/CarSearch";
+import BrandSearch from "./components/BrandSearch";
+import CarDetails from "./components/CarDetails";
+import SelectRepairShop from "./components/SelectRepairShop";
+import RepairCenter from "./components/RepairCenter";
 import Profile from "./components/Profile";
 import GasStation from "./components/gas_station/GasStation";
 import GasStationPage from "./components/gas_station/GasStationPage";
@@ -30,6 +35,11 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/explore/repair" element={<RepairShop />} />
+        <Route path="/explore/repair/car-search" element={<CarSearch />} />
+        <Route path="/explore/repair/brand-search" element={<BrandSearch />} />
+        <Route path="/explore/repair/brand-search/car-details" element={<CarDetails />} />
+        <Route path="/explore/repair/brand-search/car-details/select-repair-shop" element={<SelectRepairShop />} />
+        <Route path="/explore/repair/brand-search/car-details/select-repair-shop/repair-center" element={<RepairCenter />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/explore/gas" element={<GasStation />} />
         <Route path="/gas-station-details" element={<GasStationPage />} />
